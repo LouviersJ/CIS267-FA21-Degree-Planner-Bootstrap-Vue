@@ -1,3 +1,4 @@
+
 const lacCourses = [
     {
     "Course ID": "BIB 121",

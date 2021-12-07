@@ -22,55 +22,9 @@
                 </div>
               </b-tab>
 
-              <b-tab title="CS">
-                <div id="lac">
-                  <div class="my-4 text-left" id="lac-reqs">
-                    <div class="card my-2">
-                      <div class="card-body">
-                        <div class="row">
-                          <h5 class="col-9">
-                            <b>Computer Programming I</b>
-                          </h5>
-                          <p class="col-3 text-right">2 hours</p>
-                        </div>
-
-                        <div class="row">
-                          <div class="col-8">
-                            <p class="card-subtitle">BIB 121</p>
-                          </div>
-                          <div class="col-4 text-right">
-                            <span class="text-muted">Fall</span>
-                          </div>
-                        </div>
-                        <div class="row">
-                          <div class="col">
-                            <a
-                              href="#bib121"
-                              class="card-link fw-light"
-                              v-b-toggle="bib121"
-                              >Course description ›</a
-                            >
-                          </div>
-                        </div>
-
-                        <b-collapse
-                          class="course-description collapse card-text"
-                          id="bib121"
-                        >
-                          <p class="text-muted card-text">
-                            A thorough textual study of the life of Jesus the
-                            Christ. Emphasis is given to his virgin birth, his
-                            message and ministry, his crucifixion, his
-                            resurrection, and his ascension, all leading to a
-                            greater awareness of his greatness as the Son of God
-                            and Savior of the world. Moral, doctrinal,
-                            historical, and practical aspects of the life of
-                            Christ are also emphasized. (Text course.)
-                          </p>
-                        </b-collapse>
-                      </div>
-                    </div>
-                  </div>
+              <b-tab title="CS" active>
+                <div id="csis">
+                  <CourseInfoCard :course=d  v-for="d in csisCourses" :key="d['Course ID']" />
                 </div>
               </b-tab>
             </b-tabs>
@@ -89,7 +43,7 @@
               <div class="accordion-item">
                 <h2
                   class="accordion-header"
-                  id="fall2019heading"
+                  :id="schedule.id + 'heading'"
                   v-b-toggle:[schedule.collapseId]
                 >
                   <div class="">
@@ -105,51 +59,15 @@
                         <td></td>
                         <th>Credits</th>
                       </thead>
-                      <tr>
-                        <td>BIB 121</td>
+                      <tr v-for="s in schedule.classes" :key="s['Course ID']">
+                        <td>{{s['Course ID']}}</td>
                         <td>
-                          <span class="fw-bold"> The Life of Christ </span>
+                          <span class="fw-bold"> {{s['Course Name']}} </span>
                         </td>
                         <td>
-                          <span class="badge bg-primary"> LAC </span>
+                          <span class="badge bg-primary"> {{s['Category']}} </span>
                         </td>
-                        <td>2</td>
-                      </tr>
-                      <tr>
-                        <td>CIS 171</td>
-                        <td>
-                          <span class="fw-bold">Computer Programming I</span>
-                        </td>
-                        <td>
-                          <span class="badge bg-secondary"> CS </span>
-                        </td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <td>COM 140</td>
-                        <td>
-                          <span class="fw-bold">Speech</span>
-                        </td>
-                        <td>
-                          <span class="badge bg-primary"> LAC </span>
-                        </td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <td>CYB 101</td>
-                        <td>
-                          <span class="fw-bold">Intro to Cybersecurity</span>
-                        </td>
-                        <td></td>
-                        <td>3</td>
-                      </tr>
-                      <tr>
-                        <td>MAT 120</td>
-                        <td>
-                          <span class="fw-bold">Precalculus</span>
-                        </td>
-                        <td></td>
-                        <td>3</td>
+                        <td>{{s['Credit Hours']}}</td>
                       </tr>
                       <tr>
                         <td></td>
@@ -171,12 +89,12 @@
               <ul>
                 <li><a href="#fall2020">Fall 2020</a></li>
                 <li><a href="#spring2021">Spring 2021</a></li>
-                <li><a href="">Fall 2021</a></li>
-                <li><a href="">Spring 2022</a></li>
-                <li><a href="">Fall 2022</a></li>
-                <li><a href="">Spring 2023</a></li>
-                <li><a href="">Fall 2023</a></li>
-                <li><a href="">Spring 2024</a></li>
+                <li><a href="fall2021">Fall 2021</a></li>
+                <li><a href="spring2022">Spring 2022</a></li>
+                <li><a href="fall2022">Fall 2022</a></li>
+                <li><a href="spring2023">Spring 2023</a></li>
+                <li><a href="fall2023">Fall 2023</a></li>
+                <li><a href="spring2024">Spring 2024</a></li>
               </ul>
             </nav>
           </div>
@@ -205,12 +123,12 @@
 //import HelloWorld from './components/HelloWorld.vue'
 import CourseInfoCard from './components/CourseInfoCard.vue'
 import lacCoursesFromFile from './lac.json'
+import csisCoursesFromFile from './csis.json'
 
 export default {
   name: "App",
   components: {
     CourseInfoCard
-    //HelloWorld
   },
   mounted() {
 
@@ -219,17 +137,53 @@ export default {
     return {
       schedules: [
         {
-          name: "Fall 2019",
-          id: "fall2019",
+          name: "Fall 2020",
+          id: "fall2020",
           collapseId: "fall2019schedule",
           classes: [],
         },
         {
-          name: "Spring 2020",
+          name: "Spring 2021",
           id: "spring2020",
           collapseId: "spring2020schedule",
           classes: [],
         },
+        {
+          name: "Fall 2021",
+          id: "fall2021",
+          collapseId: "fall2021schedule",
+          classes: [],
+        },
+        {
+          name: "Spring 2022",
+          id: "spring2022",
+          collapseId: "spring2022schedule",
+          classes: [],
+        },
+        {
+          name: "Fall 2022",
+          id: "fall2022",
+          collapseId: "fall2022schedule",
+          classes: [],
+        },
+        {
+          name: "Spring 2023",
+          id: "spring2023",
+          collapseId: "spring2023schedule",
+          classes: [],
+        },
+        {
+          name: "Fall 2023",
+          id: "fall2023",
+          collapseId: "fall2023schedule",
+          classes: [],
+        },
+        {
+          name: "Spring 2024",
+          id: "spring2024",
+          collapseId: "spring2024schedule",
+          classes: [],
+        }
       ],
       courses: [
         { id: "CIS171", name: "Computer Programming I" },
@@ -237,15 +191,7 @@ export default {
       ],
 
       lacCourses: lacCoursesFromFile,
-      cisCourses: [],
-      options: [
-        { value: null, text: "Please select an option" },
-        { value: "fall2019", text: "Fall 2019" },
-        { value: "spring2020", text: "Spring 2020" },
-        { value: { C: "3PO" }, text: "This is an option with object value" },
-        { value: "d", text: "This one is disabled", disabled: true },
-      ],
-      selected: null,
+      csisCourses: csisCoursesFromFile,
     };
   },
 };
