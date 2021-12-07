@@ -34,52 +34,14 @@
           <div class="col-lg-6 semester-schedules">
             <h3>Semester Schedules</h3>
 
-            <div
+            <SemesterSchedule
+              :schedule=schedule
               v-for="schedule in schedules"
               v-bind:key="schedule.id"
               class="accordion my-4"
               id="schedule.id"
-            >
-              <div class="accordion-item">
-                <h2
-                  class="accordion-header"
-                  :id="schedule.id + 'heading'"
-                  v-b-toggle:[schedule.collapseId]
-                >
-                  <div class="">
-                    <h4 class="my-0">{{ schedule.name }}</h4>
-                  </div>
-                </h2>
-                <b-collapse :id="schedule.collapseId">
-                  <div class="accordion-body">
-                    <table class="table table-hover">
-                      <thead>
-                        <th>Course</th>
-                        <td></td>
-                        <td></td>
-                        <th>Credits</th>
-                      </thead>
-                      <tr v-for="s in schedule.classes" :key="s['Course ID']">
-                        <td>{{s['Course ID']}}</td>
-                        <td>
-                          <span class="fw-bold"> {{s['Course Name']}} </span>
-                        </td>
-                        <td>
-                          <span class="badge bg-primary"> {{s['Category']}} </span>
-                        </td>
-                        <td>{{s['Credit Hours']}}</td>
-                      </tr>
-                      <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td class="fw-bold">14</td>
-                      </tr>
-                    </table>
-                  </div>
-                </b-collapse>
-              </div>
-            </div>
+            />
+              
           </div>
 
           <!-- Table of Contents Sidebar -->
@@ -124,11 +86,13 @@
 import CourseInfoCard from './components/CourseInfoCard.vue'
 import lacCoursesFromFile from './lac.json'
 import csisCoursesFromFile from './csis.json'
+import SemesterSchedule from './components/SemesterSchedule.vue';
 
 export default {
   name: "App",
   components: {
-    CourseInfoCard
+    CourseInfoCard,
+    SemesterSchedule
   },
   mounted() {
 
@@ -194,6 +158,7 @@ export default {
       csisCourses: csisCoursesFromFile,
     };
   },
+
 };
 </script>
 

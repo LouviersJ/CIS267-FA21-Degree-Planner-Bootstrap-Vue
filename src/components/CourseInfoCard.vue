@@ -5,7 +5,7 @@
         <h5 class="col-9">
           <b>{{ course["Course Name"] }}</b>
         </h5>
-        <p class="col-3 text-right">2 hours</p>
+        <p class="col-3 text-right">{{course["Credit Hours"]}}</p>
       </div>
 
       <div class="row">
@@ -64,6 +64,11 @@ export default {
   methods: {
     convertID(courseID) {
       return courseID.replace(" ", "").replace("/", "-").toLowerCase();
+    },
+    Add(course) {
+      this.course.push({
+        
+      })
     },
   },
   computed: {
