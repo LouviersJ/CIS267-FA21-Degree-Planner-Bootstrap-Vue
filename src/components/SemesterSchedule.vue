@@ -43,9 +43,16 @@
 <script>
 export default {
     name: "SemesterSchedule",
+
   props: {
     schedule: Object,
+    course: Object
   },
+  data() {
+    return {
+        classes:[]
+    }
+    }
 }
 </script>
 

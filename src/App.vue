@@ -21,7 +21,7 @@
                   </div>
                 </div>
               </b-tab>
-
+              <!-- CS Requirements -->
               <b-tab title="CS" active>
                 <div id="csis">
                   <CourseInfoCard :course=d  v-for="d in csisCourses" :key="d['Course ID']" />
@@ -34,13 +34,8 @@
           <div class="col-lg-6 semester-schedules">
             <h3>Semester Schedules</h3>
 
-            <SemesterSchedule
-              :schedule=schedule
-              v-for="schedule in schedules"
-              v-bind:key="schedule.id"
-              class="accordion my-4"
-              id="schedule.id"
-            />
+            <SemesterSchedule :schedule=s v-for="s in schedules" :key="s.id" 
+            class="accordion my-4" id="s.id"/>
               
           </div>
 
@@ -51,12 +46,12 @@
               <ul>
                 <li><a href="#fall2020">Fall 2020</a></li>
                 <li><a href="#spring2021">Spring 2021</a></li>
-                <li><a href="fall2021">Fall 2021</a></li>
-                <li><a href="spring2022">Spring 2022</a></li>
-                <li><a href="fall2022">Fall 2022</a></li>
-                <li><a href="spring2023">Spring 2023</a></li>
-                <li><a href="fall2023">Fall 2023</a></li>
-                <li><a href="spring2024">Spring 2024</a></li>
+                <li><a href="#fall2021">Fall 2021</a></li>
+                <li><a href="#spring2022">Spring 2022</a></li>
+                <li><a href="#fall2022">Fall 2022</a></li>
+                <li><a href="#spring2023">Spring 2023</a></li>
+                <li><a href="#fall2023">Fall 2023</a></li>
+                <li><a href="#spring2024">Spring 2024</a></li>
               </ul>
             </nav>
           </div>
@@ -103,7 +98,7 @@ export default {
         {
           name: "Fall 2020",
           id: "fall2020",
-          collapseId: "fall2019schedule",
+          collapseId: "fall2020schedule",
           classes: [],
         },
         {
@@ -149,10 +144,7 @@ export default {
           classes: [],
         }
       ],
-      courses: [
-        { id: "CIS171", name: "Computer Programming I" },
-        { id: "CIS211", name: "Intro to Web Design" },
-      ],
+      courses: [],
 
       lacCourses: lacCoursesFromFile,
       csisCourses: csisCoursesFromFile,

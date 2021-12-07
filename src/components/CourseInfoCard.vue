@@ -19,7 +19,7 @@
       <div class="row">
         <b-form-select v-model="selected" :options="options"></b-form-select>
 
-        <b-button block variant="outline-secondary" class="my-2" @click="$emit('classes', selected)">Add</b-button>
+        <b-button block variant="outline-secondary" class="my-2" @click="$emits('add')">Add</b-button>
       </div>
 
       <div class="row">
@@ -65,17 +65,24 @@ export default {
     convertID(courseID) {
       return courseID.replace(" ", "").replace("/", "-").toLowerCase();
     },
-    Add(course) {
-      this.course.push({
-        
-      })
-    },
+    add(){
+      let newClass = {
+           "Course ID": this.course["Course ID"],
+           "Course Name": this.course["Course Name"],
+           "Credit Hours": this.course["Credit Hours"],
+           "Category": this.course["Category"],
+        };
+
+      this.schedule.classes.push(newClass);
+    }
   },
   computed: {
     shortID() {
       return this.course['Course ID'].replace(" ", "").replace("/", "-").toLowerCase();
-    }
-  }
+    },
+    
+  },
+  emits: ['add']
 };
 </script>
 
